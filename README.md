@@ -52,3 +52,50 @@ El proceso para igualar las tablas consiste en 3 acciones, la primera es realiza
 ![image](https://github.com/user-attachments/assets/75ac993c-ee4b-4e37-99a3-6e3b3c61bb11)
 
 Si el proceso de sincronización se completó de forma exitosa, aparecerá en pantalla un mensaje indicándolo, de igual forma si se registra un error por parte de la base de datos, se mostrará un mensaje informando el intento fallido.
+
+Pruebas realizadas para verificar el funcionamiento de la aplicación:
+
+Pruebas de escritura: Se realizaron pruebas ejecutando diferentes tipos de queries hacia las bases de datos configuradas, para validar si el resultado obtenido era el mismo para todas o si por el contrario, se presentaban inconsistencias o problemas para poder visualizar el resultado.
+Al ejecutar una consulta sobre alguna de las tablas presentes en la base de datos, se visualizó la misma respuesta o salida para cada uno de los nodos, como se puede ver a continuación:
+
+![image](https://github.com/user-attachments/assets/2af72795-9450-4ea5-9aa5-6f0dadf424db)
+
+De igual forma al realizar alguna modificación sobre los registros de la tabla, como insertar algún valor, actualizarlo o borrarlo, se observó que el resultado obtenido era que el cambio había sido aplicado en todas las bases de datos, como se puede ver en el siguiente ejemplo donde se realizan cambios sobre los registros de la tabla y al consultarlos nuevamente vemos que han sido modificados para todas las bases de datos.
+
+![image](https://github.com/user-attachments/assets/f373ec22-d4d0-45e8-a261-16881e5caa5b)
+
+Pruebas al haber indisponibilidad de las bases de datos: en esta prueba se realizaron modificación sobre las credenciales del usuario configurado para acceder a la base de datos del nodo principal, para de esta forma simular un problema de conexión, que se pudo haber generado por que el nodo se encuentra caído, no se tiene alcance dentro de la red, se modificó algún puerto, entre otras posibles razones.
+
+![image](https://github.com/user-attachments/assets/40554d26-3161-4bd5-900d-05f1000a3b5b)
+
+En este escenario al momento de ejecutar algún tipo de querie desde la interfaz de RESOFA, el resultado fue que en la pantalla solo se mostró la salida de la base de datos que aún mantenía conexión con RESOFA, ya que con la otra base de datos no fue posible establecer una conexión y por ende la ejecución de comandos no llegó.
+
+![image](https://github.com/user-attachments/assets/ffcbeb29-c6a5-4c43-9182-502d519daf68)
+
+En este escenario al momento de ejecutar algún tipo de querie desde la interfaz de RESOFA, el resultado fue que en la pantalla solo se mostró la salida de la base de datos que aún mantenía conexión con RESOFA, ya que con la otra base de datos no fue posible establecer una conexión y por ende la ejecución de comandos no llegó.
+
+![image](https://github.com/user-attachments/assets/0fe6e468-7704-4914-9819-fdbadbf56d60)
+
+![image](https://github.com/user-attachments/assets/adbd97c8-adb6-45e0-a8db-ea51eaa7e85c)
+
+Luego se probó el botón para validar cual es el nodo maestro que se está encargando de procesar las solicitudes en ese momento, ya que el nodo al cual no se puede conectar era el nodo principal, el resultado de la validación fue que el nodo maestro era el de contingencia.
+
+![image](https://github.com/user-attachments/assets/fb7829fc-1217-4fd3-8a4e-d5f1bd8d3627)
+
+Una vez se restablecieron los valores correctos de las credenciales utilizadas y se pudo establecer nuevamente conexión con la base de datos, se procedió a validar por medio de una consulta que valores contenían las tablas de cada base de datos, encontrándose inconsistencias en la información mostrada, como se puede ver a continuación:
+
+![image](https://github.com/user-attachments/assets/1133f898-3ba7-40b6-ba9a-728ca28afaa6)
+
+![image](https://github.com/user-attachments/assets/11e7ead0-0382-4c7f-a7e0-c63b1d5df103)
+
+Lo anterior debido a que mientras uno de los nodos se encontraba indisponible, se realizaron modificaciones sobre el otro nodo, los cuales no pudieron ser replicados en tiempo real, por lo tanto, el nodo inactivo se encuentra en un estado desactualizado, para corregir esta inconsistencia, se realizó la tercera prueba que se explicara a continuación.
+
+Pruebas de sincronización post-desastres: En esta prueba lo que se realizó fue verificar el contenido de las tablas antes y después de realizar las tareas de sincronización para poder igualar la información presente en cada base de datos, antes de realizar el proceso de sincronización, como se mencionó en la anterior, se evidenciaron algunas prueba inconsistencias que debían ser corregidas. Frente a este escenario se procedió a probar el botón diseñado para poder sincronizar las bases de datos, lo que hace este botón es hacer un llamado a una función que realiza unas tareas de iteración validando el contenido entre las tablas de cada base de datos, con base en una indicación previa que se da para saber contra que se debe iterar, es decir cuál es la base de datos que se debe tomar como referencia para igualar el contenido de ambas bases de datos, lo anterior se hace pensando en que el usuario tenga libertad de escoger la manera en que se debe procesar la información. Una vez se completó el proceso de sincronización de los datos se volvió a consultar el contenido de las tablas encontrando que los registros eran iguales para ambas bases de datos, comprobando que el proceso de sincronización fue realizado de manera correcta.
+
+![image](https://github.com/user-attachments/assets/46090f89-cc5a-485f-9f01-090455ab0949)
+
+![image](https://github.com/user-attachments/assets/b3674571-b365-4930-9d33-ef17c2073654)
+
+![image](https://github.com/user-attachments/assets/d1381873-81d2-4696-9254-c2ffce326e43)
+
+
