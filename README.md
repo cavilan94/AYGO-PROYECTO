@@ -4,6 +4,7 @@ El titulo del proyecto es: "Entendimiento de sistema de replicación de clusters
 Para este proyecto se desarollo una aplicación en lenguaje JAVA,llamada RESOFA (Replication software for all) la cual ofrece por medio de una GUI diferentes opciones para validar que la información se este replicando de manera correcta a cada uno de los nodos presentes en la arquitectura de cluster, validar cual es el nodo que esta asumiendo el rol de maestro y realizar una sincronización de datos con base en una referencia seleccionable, la aplicación esta pensada como una solución que se ofrezca de forma gratuita para empresas que quieran implementar procesos de replciación en clusters, pero no cuenten con el musculo financiero para adquirir soluciones pagas.
 
 Arquitectura de la Aplicación RESOFA
+
 ![image](https://github.com/user-attachments/assets/c12cb55c-ef7d-4e39-8b9a-7874b15d04b1)
 
 La apicación realiza conexóon a cada una de las bases de datos configuradas para validar su conexión, realizar consulta de información y el proceso de sincronización enc aso de ser requerido.
